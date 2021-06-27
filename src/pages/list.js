@@ -13,14 +13,16 @@ export default function List({ownersList}){
     //     loadData();
     // }, [])
 
+
+    
     return( 
             <div>   
-                {ownersList.map(e => (
-                <div key={e.v}>
-                    <Link  as={`/${e.v}/${e.name}`} href='/[vehicle]/[person]'>
-                        <a >Navigate to{e.name}'s  {e.v}</a>
-                    </Link>
-                </div>
+                {ownersList.map((e,index)=> (
+                    <div key={index}>
+                        <Link  as={`/${e.vehicle}/${e.ownerName}`} href='/[vehicle]/[person]'>
+                            <a>Navigate to {e.ownerName}'s  {e.vehicle}  {index}</a>
+                        </Link>
+                    </div>
                 ))} 
             </div>
         )
@@ -28,9 +30,9 @@ export default function List({ownersList}){
 
 List.getInitialProps = async () => {
     const response = await fetch('http://localhost:4001/vehicles');
-    const ownerList = await response.json();
+    const ownersList = await response.json();
 
     return {
-        ownersList : [{ownersList : ownerList}]
+        ownersList : ownersList
     }
 }
